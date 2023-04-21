@@ -9,6 +9,9 @@ pipelines:
         execution:
           onSuccess:
             # replace 'notifySMTP' with the name of your SMTP Credentials integration
+            - touch test.txt
+            - echo "hello" > test.txt
+            - send_notification notifySMTP --recipients "buildalerts@mycompany.com" --subject "Build Succeeded" --body "example" --attachments test.txt            
             - send_notification notifySMTP --recipients "buildalerts@mycompany.com" --subject "Build Succeeded" --body "built docker image 112.32.101.173:8081/docker-local/demo:$PIPELINE_NAME.$RUN_NUMBER"
           onFailure:
             # replace 'notifySMTP' with the name of your SMTP Credentials integration
